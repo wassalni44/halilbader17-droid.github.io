@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>واصلني — توصيل في أولاد تايمة</title>
+<meta name="description" content="خدمة توصيل سريع في أولاد تايمة — مطاعم، صيدليات، بقالة وأكثر">
+<meta name="theme-color" content="#E63946">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="واصلني">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://img.icons8.com/emoji/96/delivery-scooter.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -479,6 +487,7 @@
     <div class="hero-btns">
       <a href="#order" class="btn-primary">🍔 اطلب الآن</a>
       <a href="#categories" class="btn-secondary">شوف الفئات</a>
+      <button id="installBtn" onclick="" style="display:none; background:linear-gradient(135deg,#FFD60A,#FF6B35); color:#1A1A2E; border:none; padding:14px 32px; border-radius:50px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; align-items:center; gap:8px;">📲 حمل التطبيق</button>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -785,10 +794,19 @@
         <h3 style="font-size:1.1rem; margin-bottom:8px;">أولاد تايمة</h3>
         <p style="color:var(--text-muted); font-size:0.83rem; margin-bottom:20px;">نوصلو لجميع أحياء المدينة</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الوردة</div>
-          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 المركز</div>
-          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الأمل</div>
-          <div style="background:rgba(46,196,182,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem; color:var(--green)">+ جميع الأحياء الأخرى</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 المركز / السوق البلدي</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الكرسي</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الشراردة</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الرطيم</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي الرياض</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">📍 حي المويسات</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار الكفيفات</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار سيدي بوموسى</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار عين شعيب</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار الكدية</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار اسن</div>
+          <div style="background:rgba(230,57,70,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem;">🏘️ دوار الكراكر</div>
+          <div style="background:rgba(46,196,182,0.1); padding:10px 16px; border-radius:10px; font-size:0.83rem; color:var(--green)">+ جميع المناطق الأخرى</div>
         </div>
       </div>
     </div>
@@ -808,6 +826,30 @@
   </div>
   <div class="footer-copy">© 2025 واصلني — جميع الحقوق محفوظة • Tous droits réservés</div>
 </footer>
+
+<!-- CONFIRM DELIVERY SECTION -->
+<section style="background: var(--dark); padding: 60px 20px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">تأكيد الاستلام • Confirmation</div>
+      <h2 class="section-title">وصلك الطلب؟ أكد الاستلام</h2>
+      <p class="section-sub">اضغط على الزر باش نعرفو أن طلبك وصل بسلامة</p>
+    </div>
+    <div class="order-form" style="max-width:400px;">
+      <div class="form-group">
+        <label>رقم هاتفك • Votre téléphone</label>
+        <input type="tel" id="confirmPhone" placeholder="06XXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label>اسم المحل • Magasin</label>
+        <input type="text" id="confirmShop" placeholder="مثال: مطعم الأصيل">
+      </div>
+      <button class="btn-submit" style="background:linear-gradient(135deg,#2EC4B6,#25D366);" onclick="confirmDelivery()">
+        ✅ أكد الاستلام • Confirmer la réception
+      </button>
+    </div>
+  </div>
+</section>
 
 <!-- FLOATING CART -->
 <button class="cart-float" onclick="window.location='#order'">
@@ -880,6 +922,39 @@
       const target = document.querySelector(a.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
+  });
+
+  // Confirm delivery
+  function confirmDelivery() {
+    const phone = document.getElementById('confirmPhone').value;
+    const shop = document.getElementById('confirmShop').value;
+    if (!phone || !shop) {
+      showToast('⚠️ كمل جميع الخانات', true);
+      return;
+    }
+    const msg = `✅ *تأكيد الاستلام — واصلني*\n\n📞 رقم الزبون: ${phone}\n🏪 المحل: ${shop}\n⏰ الوقت: ${new Date().toLocaleTimeString('ar-MA')}`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/212679610616?text=${encoded}`, '_blank');
+    showToast('✅ تم تأكيد الاستلام! شكراً لك');
+    document.getElementById('confirmPhone').value = '';
+    document.getElementById('confirmShop').value = '';
+  }
+
+  // PWA Install
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'flex';
+  });
+  document.getElementById('installBtn')?.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') showToast('✅ تم تثبيت واصلني!');
+      deferredPrompt = null;
+      document.getElementById('installBtn').style.display = 'none';
+    }
   });
 </script>
 </body>
