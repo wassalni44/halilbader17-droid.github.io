@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>واصلني — توصيل في أولاد تايمة</title>
+<meta name="description" content="خدمة توصيل سريع في أولاد تايمة — مطاعم، صيدليات، بقالة وأكثر">
+<meta name="theme-color" content="#E63946">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="واصلني">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://img.icons8.com/emoji/96/delivery-scooter.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #E63946;
+    --primary-dark: #C1121F;
+    --secondary: #FF6B35;
+    --dark: #1A1A2E;
+    --dark2: #16213E;
+    --card: #0F3460;
+    --text: #EAEAEA;
+    --text-muted: #A0A0B0;
+    --gold: #FFD60A;
+    --green: #2EC4B6;
+    --white: #FFFFFF;
+    --gradient: linear-gradient(135deg, #E63946, #FF6B35);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ═══ NAVBAR ═══ */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(26,26,46,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(230,57,70,0.3);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 1.6rem; font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+
+  .nav-links { display: flex; gap: 20px; align-items: center; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 600;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--primary); }
+
+  .btn-order {
+    background: var(--gradient);
+    color: white; border: none; padding: 10px 22px;
+    border-radius: 50px; font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem; font-weight: 700; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-order:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(230,57,70,0.4); }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top right, rgba(230,57,70,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom left, rgba(255,107,53,0.1) 0%, transparent 60%),
+                var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 20px 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E63946' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 600px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(230,57,70,0.15);
+    border: 1px solid rgba(230,57,70,0.3);
+    padding: 8px 18px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600; color: var(--primary);
+    margin-bottom: 24px; animation: fadeDown 0.8s ease;
+  }
+
+  .badge::before { content: '🛵'; }
+
+  h1 {
+    font-size: clamp(2.2rem, 7vw, 3.8rem);
+    font-weight: 900; line-height: 1.15;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  h1 .highlight {
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1rem; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+
+  .btn-primary {
+    background: var(--gradient); color: white;
+    padding: 14px 32px; border-radius: 50px;
+    font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 700;
+    border: none; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(230,57,70,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(230,57,70,0.5); }
+
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    padding: 14px 32px; border-radius: 50px;
+    font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 40px;
+    margin-top: 50px; animation: fadeUp 0.8s ease 0.8s both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 1.8rem; font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+  /* ═══ SECTION STYLES ═══ */
+  section { padding: 80px 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .section-header { text-align: center; margin-bottom: 50px; }
+  .section-tag {
+    display: inline-block;
+    color: var(--primary); font-size: 0.8rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; }
+  .section-sub { color: var(--text-muted); font-size: 0.95rem; margin-top: 10px; }
+
+  /* ═══ CATEGORIES ═══ */
+  .categories { background: var(--dark2); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  .cat-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 28px 16px;
+    text-align: center; cursor: pointer;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+
+  .cat-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--gradient); opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .cat-card:hover::before { opacity: 0.1; }
+  .cat-card:hover { transform: translateY(-6px); border-color: rgba(230,57,70,0.4); }
+
+  .cat-icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+  .cat-name { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+  .cat-name-fr { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+  .cat-count {
+    display: inline-block; margin-top: 10px;
+    background: rgba(230,57,70,0.15); color: var(--primary);
+    padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+  }
+
+  /* ═══ HOW IT WORKS ═══ */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .step {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 32px 24px;
+    text-align: center; position: relative;
+  }
+
+  .step-num {
+    width: 48px; height: 48px;
+    background: var(--gradient);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 900; color: white;
+    margin: 0 auto 18px;
+  }
+
+  .step-icon { font-size: 2rem; margin-bottom: 14px; }
+  .step h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+  .step p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ═══ RESTAURANTS ═══ */
+  .rest-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .rest-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; overflow: hidden;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .rest-card:hover { transform: translateY(-6px); border-color: rgba(230,57,70,0.3); }
+
+  .rest-img {
+    width: 100%; height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    background: linear-gradient(135deg, rgba(230,57,70,0.1), rgba(255,107,53,0.1));
+  }
+
+  .rest-body { padding: 18px; }
+  .rest-name { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+  .rest-cat { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; }
+
+  .rest-meta { display: flex; gap: 16px; align-items: center; }
+  .rest-rating { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 700; color: var(--gold); }
+  .rest-time { font-size: 0.78rem; color: var(--text-muted); }
+  .rest-delivery {
+    margin-right: auto;
+    background: rgba(46,196,182,0.15); color: var(--green);
+    padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 700;
+  }
+
+  /* ═══ ORDER FORM ═══ */
+  .order-section {
+    background: radial-gradient(ellipse at center, rgba(230,57,70,0.1) 0%, transparent 70%),
+                var(--dark2);
+  }
+
+  .order-form {
+    background: var(--card);
+    border: 1px solid rgba(230,57,70,0.2);
+    border-radius: 24px; padding: 40px;
+    max-width: 540px; margin: 0 auto;
+  }
+
+  .form-title {
+    font-size: 1.4rem; font-weight: 900;
+    text-align: center; margin-bottom: 28px;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  label {
+    display: block; font-size: 0.83rem;
+    font-weight: 700; color: var(--text-muted); margin-bottom: 8px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 13px 16px;
+    color: var(--text); font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    background: rgba(230,57,70,0.05);
+  }
+  select option { background: var(--dark); }
+  textarea { resize: vertical; min-height: 90px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .btn-submit {
+    width: 100%; padding: 15px;
+    background: var(--gradient); color: white;
+    border: none; border-radius: 12px;
+    font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 800;
+    cursor: pointer; margin-top: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(230,57,70,0.4); }
+
+  /* ═══ WHY US ═══ */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .feature {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 28px 22px;
+    transition: all 0.3s;
+  }
+  .feature:hover { border-color: rgba(230,57,70,0.3); transform: translateY(-4px); }
+
+  .feature-icon {
+    width: 52px; height: 52px;
+    background: rgba(230,57,70,0.1);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 16px;
+  }
+  .feature h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+  .feature p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ═══ CONTACT ═══ */
+  .contact-section { background: var(--dark); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; align-items: center;
+  }
+
+  .contact-info h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 16px; }
+  .contact-info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 28px; }
+
+  .contact-items { display: flex; flex-direction: column; gap: 16px; }
+
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 18px; border-radius: 14px;
+  }
+  .contact-icon {
+    width: 40px; height: 40px; min-width: 40px;
+    background: rgba(230,57,70,0.1);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-text { font-size: 0.85rem; }
+  .contact-label { color: var(--text-muted); font-size: 0.75rem; margin-bottom: 2px; }
+
+  .whatsapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white; border: none; border-radius: 14px;
+    font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 800;
+    cursor: pointer; margin-top: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,211,102,0.3); }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 20px 30px; text-align: center;
+  }
+
+  .footer-logo { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
+  .footer-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .footer-tagline { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+  .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--primary); }
+
+  .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
+
+  /* ═══ FLOATING CART ═══ */
+  .cart-float {
+    position: fixed; bottom: 24px; left: 24px; z-index: 999;
+    background: var(--gradient);
+    color: white; border: none; border-radius: 50px;
+    padding: 14px 24px; font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(230,57,70,0.5);
+    display: flex; align-items: center; gap: 10px;
+    transition: transform 0.2s;
+    animation: pulse 2s infinite;
+  }
+  .cart-float:hover { transform: scale(1.05); }
+  .cart-badge {
+    background: white; color: var(--primary);
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 900;
+  }
+
+  /* ═══ TOAST ═══ */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--green); color: white;
+    padding: 12px 24px; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 700;
+    transition: transform 0.4s; z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ═══ ANIMATIONS ═══ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 30px rgba(230,57,70,0.5); }
+    50% { box-shadow: 0 8px 40px rgba(230,57,70,0.8); }
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .order-form { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">واصل<span>ني</span></div>
+  <div class="nav-links">
+    <a href="#categories">الفئات</a>
+    <a href="#restaurants">المطاعم</a>
+    <a href="#order">اطلب الآن</a>
+    <a href="#contact">تواصل معنا</a>
+  </div>
+  <a href="#order" class="btn-order">🛵 اطلب الآن</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">توصيل سريع في أولاد تايمة</div>
+    <h1>
+      كل ما تحتاجه<br>
+      <span class="highlight">يوصلك للباب</span>
+    </h1>
+    <p class="hero-sub">
+      مطاعم، صيدليات، بقالة وأكثر —<br>
+      <span style="font-size:0.85rem;color:#888;">Restaurants, pharmacies, épiceries et plus</span>
+    </p>
+    <div class="hero-btns">
+      <a href="#order" class="btn-primary">🍔 اطلب الآن</a>
+      <a href="#categories" class="btn-secondary">شوف الفئات</a>
+      <button id="installBtn" onclick="" style="display:none; background:linear-gradient(135deg,#FFD60A,#FF6B35); color:#1A1A2E; border:none; padding:14px 32px; border-radius:50px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; align-items:center; gap:8px;">📲 حمل التطبيق</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">+50</div>
+        <div class="stat-label">محل شريك</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30</div>
+        <div class="stat-label">دقيقة توصيل</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">خدمة مستمرة</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">الفئات • Catégories</div>
+      <h2 class="section-title">شنو تبغي اليوم؟</h2>
+      <p class="section-sub">اختار الفئة وشوف المحلات المتاحة</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterCat('food')">
+        <span class="cat-icon">🍔</span>
+        <div class="cat-name">مطاعم وأكل</div>
+        <div class="cat-name-fr">Restaurants</div>
+        <span class="cat-count">+20 محل</span>
+      </div>
+      <div class="cat-card" onclick="filterCat('pharmacy')">
+        <span class="cat-icon">💊</span>
+        <div class="cat-name">صيدليات</div>
+        <div class="cat-name-fr">Pharmacies</div>
+        <span class="cat-count">+8 صيدلية</span>
+      </div>
+      <div class="cat-card" onclick="filterCat('grocery')">
+        <span class="cat-icon">🥦</span>
+        <div class="cat-name">بقالة وخضرة</div>
+        <div class="cat-name-fr">Épicerie</div>
+        <span class="cat-count">+12 محل</span>
+      </div>
+      <div class="cat-card" onclick="filterCat('sweets')">
+        <span class="cat-icon">🧁</span>
+        <div class="cat-name">حلويات ومخبزة</div>
+        <div class="cat-name-fr">Pâtisserie</div>
+        <span class="cat-count">+6 محل</span>
+      </div>
+      <div class="cat-card" onclick="filterCat('coffee')">
+        <span class="cat-icon">☕</span>
+        <div class="cat-name">قهوة ومشروبات</div>
+        <div class="cat-name-fr">Café & Boissons</div>
+        <span class="cat-count">+5 محل</span>
+      </div>
+      <div class="cat-card" onclick="filterCat('all')">
+        <span class="cat-icon">🛍️</span>
+        <div class="cat-name">كل شيء</div>
+        <div class="cat-name-fr">Tout</div>
+        <span class="cat-count">+50 محل</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">كيف يخدم • Comment ça marche</div>
+      <h2 class="section-title">3 خطوات بسيطة</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📍</div>
+        <h3>اختار المحل</h3>
+        <p>شوف المطاعم والمحلات المتاحة في أولاد تايمة</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🛒</div>
+        <h3>اطلب ما تبغي</h3>
+        <p>اختار المنتجات وأكد طلبك بسهولة من الهاتف</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">🛵</div>
+        <h3>استنى في البيت</h3>
+        <p>السائق يوصلك في أقل من 30 دقيقة باب لباب</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESTAURANTS -->
+<section id="restaurants" style="background: var(--dark2);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">شركاؤنا • Nos partenaires</div>
+      <h2 class="section-title">أحسن المحلات في أولاد تايمة</h2>
+    </div>
+    <div class="rest-grid" id="restGrid">
+      <div class="rest-card" data-cat="food" onclick="selectRest('مطعم الأصيل')">
+        <div class="rest-img">🍗</div>
+        <div class="rest-body">
+          <div class="rest-name">مطعم الأصيل</div>
+          <div class="rest-cat">دجاج مشوي • كباب • طاجين</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.8</span>
+            <span class="rest-time">⏱ 25 دقيقة</span>
+            <span class="rest-delivery">توصيل مجاني</span>
+          </div>
+        </div>
+      </div>
+      <div class="rest-card" data-cat="food" onclick="selectRest('بيتزا تايمة')">
+        <div class="rest-img">🍕</div>
+        <div class="rest-body">
+          <div class="rest-name">بيتزا تايمة</div>
+          <div class="rest-cat">بيتزا • برغر • ساندويش</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.6</span>
+            <span class="rest-time">⏱ 20 دقيقة</span>
+            <span class="rest-delivery">توصيل 10 دراهم</span>
+          </div>
+        </div>
+      </div>
+      <div class="rest-card" data-cat="pharmacy" onclick="selectRest('صيدلية النور')">
+        <div class="rest-img">💊</div>
+        <div class="rest-body">
+          <div class="rest-name">صيدلية النور</div>
+          <div class="rest-cat">أدوية • مستحضرات • فيتامينات</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.9</span>
+            <span class="rest-time">⏱ 15 دقيقة</span>
+            <span class="rest-delivery">توصيل مجاني</span>
+          </div>
+        </div>
+      </div>
+      <div class="rest-card" data-cat="grocery" onclick="selectRest('سوبيرمارشي الفرح')">
+        <div class="rest-img">🛒</div>
+        <div class="rest-body">
+          <div class="rest-name">سوبيرمارشي الفرح</div>
+          <div class="rest-cat">خضرة • فواكه • بقالة</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.7</span>
+            <span class="rest-time">⏱ 30 دقيقة</span>
+            <span class="rest-delivery">توصيل 10 دراهم</span>
+          </div>
+        </div>
+      </div>
+      <div class="rest-card" data-cat="sweets" onclick="selectRest('حلويات الفردوس')">
+        <div class="rest-img">🍰</div>
+        <div class="rest-body">
+          <div class="rest-name">حلويات الفردوس</div>
+          <div class="rest-cat">كعك • حلويات مغربية • عصائر</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.9</span>
+            <span class="rest-time">⏱ 20 دقيقة</span>
+            <span class="rest-delivery">توصيل مجاني</span>
+          </div>
+        </div>
+      </div>
+      <div class="rest-card" data-cat="coffee" onclick="selectRest('قهوة الصباح')">
+        <div class="rest-img">☕</div>
+        <div class="rest-body">
+          <div class="rest-name">قهوة الصباح</div>
+          <div class="rest-cat">قهوة • أتاي • حريرة • مسمن</div>
+          <div class="rest-meta">
+            <span class="rest-rating">⭐ 4.7</span>
+            <span class="rest-time">⏱ 15 دقيقة</span>
+            <span class="rest-delivery">توصيل مجاني</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="order-section" id="order">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">اطلب الآن • Commander</div>
+      <h2 class="section-title">اطلب مباشرة من الموقع</h2>
+    </div>
+    <div class="order-form">
+      <div class="form-title">📦 تفاصيل طلبك</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>الاسم الكامل • Nom complet</label>
+          <input type="text" id="name" placeholder="محمد الأمين..." required>
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف • Téléphone</label>
+          <input type="tel" id="phone" placeholder="06XXXXXXXX" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>العنوان في أولاد تايمة • Adresse</label>
+        <input type="text" id="address" placeholder="الحي، الزنقة، رقم البيت..." required>
+      </div>
+      <div class="form-group">
+        <label>المحل أو المطعم • Restaurant / Magasin</label>
+        <select id="restaurant">
+          <option value="">-- اختار المحل --</option>
+          <optgroup label="💊 صيدليات">
+            <option>صيدلية هوارة - شارع محمد الخامس</option>
+            <option>صيدلية أولاد تايمة - المركز</option>
+            <option>صيدلية الرفاعي - حي رابحة</option>
+            <option>صيدلية الطور - شارع الحسن الثاني</option>
+            <option>صيدلية الأمل - حي الكرسي</option>
+            <option>صيدلية بوخريص - حي بوخريص</option>
+            <option>صيدلية الشفاء - شارع الحسن الثاني</option>
+            <option>صيدلية الوحدة - حي النهضة</option>
+            <option>صيدلية ابن سينا - قرب المركز الصحي</option>
+            <option>صيدلية النهضة - حي النهضة 1</option>
+            <option>الصيدلية الرئيسية هوارة</option>
+          </optgroup>
+          <optgroup label="🍴 مطاعم">
+            <option>مطعم السمك - شارع محمد الخامس</option>
+            <option>مطعم الأطباق الذهبية</option>
+            <option>مطعم المايسترو</option>
+            <option>سناك السعادة</option>
+            <option>مطعم تافراوت - طريق أكادير</option>
+            <option>شواية هوارة - قرب المحطة</option>
+            <option>سناك العربي - حي الشنينات</option>
+            <option>بيتزا هوارة</option>
+            <option>مطعم وتجزئة الأمان</option>
+          </optgroup>
+          <optgroup label="🛒 أسواق">
+            <option>مرجان ماركت - شارع محمد الخامس</option>
+            <option>بيم - قرب مسجد التزنيتي</option>
+            <option>سوبر ماركت مبارك</option>
+            <option>السوق البلدي</option>
+            <option>متجر الإخوان - حي الشنينات</option>
+            <option>ميني ماركت - شارع الربيع</option>
+          </optgroup>
+          <optgroup label="☕ مقاهي ومخابز">
+            <option>مقهى ريكس</option>
+            <option>مقهى ومخبزة باريس</option>
+            <option>مقهى فيلا دبي - قرب محطة الطاكسيات</option>
+            <option>مقهى سانتياغو - شارع الحرية</option>
+            <option>مقهى زعفران - حي النهضة الكبرى</option>
+            <option>مقهى إيناس - شارع الحسن الأول</option>
+            <option>مخبزة وحلويات الصباح - المركز</option>
+            <option>مخبزة فضيلة - حي النهضة</option>
+            <option>مقهى الأطلس - ساحة الأمل</option>
+            <option>مقهى ومطعم النخيل - طريق تارودانت</option>
+          </optgroup>
+          <option>محل آخر</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>تفاصيل الطلب • Détails de la commande</label>
+        <textarea id="details" placeholder="مثال: 1 دجاج مشوي + 2 خبز + كوكا...&#10;Exemple: 1 poulet rôti + 2 pain..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>طريقة الدفع • Paiement</label>
+        <select id="payment">
+          <option value="cash">💵 كاش عند التوصيل • Cash à la livraison</option>
+          <option value="transfer">📱 تحويل • Virement</option>
+        </select>
+      </div>
+      <button class="btn-submit" onclick="submitOrder()">
+        🛵 أكد الطلب • Confirmer la commande
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">لماذا واصلني • Pourquoi nous</div>
+      <h2 class="section-title">علاش تختار واصلني؟</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>توصيل سريع</h3>
+        <p>في أقل من 30 دقيقة طلبك يوصل لبابك مهما كان الحي</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>مضمون وموثوق</h3>
+        <p>سائقين موثوقين ومحلات شريكة تم التحقق منها</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💰</div>
+        <h3>أسعار معقولة</h3>
+        <p>رسوم توصيل مناسبة وبعض المحلات توصيل مجاني</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>سهل الاستخدام</h3>
+        <p>اطلب من هاتفك في دقيقة واحدة بدون تطبيق إضافي</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>تواصل معنا<br><span style="color:var(--primary)">واصلني 🛵</span></h2>
+        <p>عندك سؤال أو مشكلة في الطلب؟ فريقنا هنا 24/7 خدمتك.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <div class="contact-label">العنوان • Adresse</div>
+              أولاد تايمة، إقليم تيزنيت، المغرب
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <div class="contact-label">الهاتف • Téléphone</div>
+              06 XX XX XX XX
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-text">
+              <div class="contact-label">أوقات العمل • Horaires</div>
+              كل يوم من 8 صباحاً حتى 12 منتصف الليل
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/212679610616" class="whatsapp-btn">
+          <span>💬</span> تواصل على واتساب • WhatsApp
+        </a>
+      </div>
+      <div style="background: var(--dark2); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; overflow:hidden;">
+        <iframe
+          src="https://www.google.com/maps?q=30.3917567,-9.2175988&z=14&output=embed"
+          width="100%" height="320" style="border:0; display:block;"
+          allowfullscreen loading="lazy">
+        </iframe>
+        <div style="padding:16px; text-align:center;">
+          <a href="https://www.google.com/maps?q=30.3917567,-9.2175988" target="_blank"
+            style="color:var(--primary); font-size:0.85rem; font-weight:700; text-decoration:none;">
+            📍 افتح في Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>واصلني</span></div>
+  <div class="footer-tagline">توصيل سريع في أولاد تايمة • Livraison rapide à Oulad Teima</div>
+  <div class="footer-links">
+    <a href="#categories">الفئات</a>
+    <a href="#order">اطلب الآن</a>
+    <a href="#contact">تواصل معنا</a>
+    <a href="#">انضم كسائق</a>
+    <a href="#">شارك كمحل</a>
+  </div>
+  <div class="footer-copy">© 2025 واصلني — جميع الحقوق محفوظة • Tous droits réservés</div>
+</footer>
+
+<!-- CONFIRM DELIVERY SECTION -->
+<section style="background: var(--dark); padding: 60px 20px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">تأكيد الاستلام • Confirmation</div>
+      <h2 class="section-title">وصلك الطلب؟ أكد الاستلام</h2>
+      <p class="section-sub">اضغط على الزر باش نعرفو أن طلبك وصل بسلامة</p>
+    </div>
+    <div class="order-form" style="max-width:400px;">
+      <div class="form-group">
+        <label>رقم هاتفك • Votre téléphone</label>
+        <input type="tel" id="confirmPhone" placeholder="06XXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label>اسم المحل • Magasin</label>
+        <input type="text" id="confirmShop" placeholder="مثال: مطعم الأصيل">
+      </div>
+      <button class="btn-submit" style="background:linear-gradient(135deg,#2EC4B6,#25D366);" onclick="confirmDelivery()">
+        ✅ أكد الاستلام • Confirmer la réception
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CART -->
+<button class="cart-float" onclick="window.location='#order'">
+  🛵 اطلب الآن
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // Filter categories
+  function filterCat(cat) {
+    const cards = document.querySelectorAll('.rest-card');
+    cards.forEach(c => {
+      if (cat === 'all' || c.dataset.cat === cat) {
+        c.style.display = '';
+      } else {
+        c.style.display = 'none';
+      }
+    });
+    document.getElementById('restaurants').scrollIntoView({ behavior: 'smooth' });
+    showToast(cat === 'all' ? '✅ عارض كل المحلات' : '✅ تم الفلتر');
+  }
+
+  // Select restaurant
+  function selectRest(name) {
+    document.getElementById('restaurant').value = name;
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    showToast('✅ تم اختيار ' + name);
+    document.getElementById('cartCount').textContent = '1';
+  }
+
+  // Submit order
+  function submitOrder() {
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const restaurant = document.getElementById('restaurant').value;
+    const details = document.getElementById('details').value;
+    const payment = document.getElementById('payment').value;
+
+    if (!name || !phone || !address || !restaurant || !details) {
+      showToast('⚠️ كمل جميع الخانات', true);
+      return;
+    }
+
+    // Build WhatsApp message
+    const mapsLink = `https://www.google.com/maps/search/${encodeURIComponent(address + ' أولاد تايمة')}`;
+    const msg = `🛵 *طلب جديد — واصلني*\n\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n📍 العنوان: ${address}\n🗺️ موقع الزبون: ${mapsLink}\n🏪 المحل: ${restaurant}\n📦 الطلب: ${details}\n💵 الدفع: ${payment === 'cash' ? 'كاش' : 'تحويل'}\n\n*للسائق: اضغط على الرابط فوق باش تبدأ الملاحة 🚗*`;
+
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/212679610616?text=${encoded}`, '_blank');
+    showToast('✅ تم إرسال الطلب عبر واتساب!');
+    document.getElementById('cartCount').textContent = '0';
+  }
+
+  // Toast notification
+  function showToast(msg, error = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = error ? '#E63946' : '#2EC4B6';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Confirm delivery
+  function confirmDelivery() {
+    const phone = document.getElementById('confirmPhone').value;
+    const shop = document.getElementById('confirmShop').value;
+    if (!phone || !shop) {
+      showToast('⚠️ كمل جميع الخانات', true);
+      return;
+    }
+    const msg = `✅ *تأكيد الاستلام — واصلني*\n\n📞 رقم الزبون: ${phone}\n🏪 المحل: ${shop}\n⏰ الوقت: ${new Date().toLocaleTimeString('ar-MA')}`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/212679610616?text=${encoded}`, '_blank');
+    showToast('✅ تم تأكيد الاستلام! شكراً لك');
+    document.getElementById('confirmPhone').value = '';
+    document.getElementById('confirmShop').value = '';
+  }
+
+  // PWA Install
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'flex';
+  });
+  document.getElementById('installBtn')?.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') showToast('✅ تم تثبيت واصلني!');
+      deferredPrompt = null;
+      document.getElementById('installBtn').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
